@@ -9,7 +9,7 @@
         "Express",
         "Heroku"
     ],
-    "repository": "https://github.com/DjihadBengati/node-express-angular/tree/master",
+    "repository": "https://github.com/thunderawesome/node-express-angular/tree/master",
     "success_url": "/",
     "formation": {
         "web": {
@@ -17,7 +17,5 @@
             "size": "free"
         }
     },
-    "addons": [
-        "mongolab"
-    ]
+    "addons": []
 }
