@@ -13,7 +13,7 @@ export class ProductCreateComponent implements OnInit {
   productForm: FormGroup;
   name: string = '';
   brand: string = '';
-  image: string = '';
+  imageSrc: string = '';
   error: boolean = false;
 
   @Output() createdProduct = new EventEmitter<IProduct>();
@@ -24,6 +24,33 @@ export class ProductCreateComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
+
+  get f(){
+    return this.productForm.controls;
+  }
+
+  onFileChange(event) {
+    const reader = new FileReader();
+    
+    if(event.target.files.length == 0){
+      this.imageSrc = null;
+    }
+
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);    
+      
+      reader.onload = () => {   
+       
+        this.imageSrc = reader.result as string;
+     
+        this.productForm.patchValue({
+          imageSrc: reader.result
+        });      
+   
+      };
+    }
+  };
 
   // Manage the submit action and create the new product.
   onSubmit() {
@@ -48,7 +75,7 @@ export class ProductCreateComponent implements OnInit {
     this.productForm = new FormGroup({
       name: new FormControl(this.name, Validators.required),
       brand: new FormControl(this.brand, Validators.required),
-      image: new FormControl(this.image, Validators.required)
+      image: new FormControl(this.imageSrc)
     });
   }
 
